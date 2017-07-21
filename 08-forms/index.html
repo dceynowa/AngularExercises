@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>AngularJS</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.css"/>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            padding-top: 75px;
+        }
+        
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+        
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Starter</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Page Content -->
+<div class="container" ng-controller="FormCtrl as vm">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Disable default validation -->
+            <form novalidate name="myForm">
+                <div class="form-group" ng-class="{'has-error': myForm.name.$dirty && myForm.name.$invalid}">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                           ng-model="vm.person.name" ng-minlength="5" ng-required="true">
+                </div>
+                <div class="form-group" ng-class="{'has-error': myForm.email.$dirty && myForm.email.$invalid}">
+                    <label for="email">Email address (not required, valid email if provided)</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                           ng-model="vm.person.email">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" class="form-control" ng-model="vm.person.gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <p class="help-block">Your age</p>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="true" ng-model="vm.person.ofAge">
+                            I am 18+ (Select to enable Option 3)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="someOption" ng-model="vm.person.someOption" value="Opt 1">
+                            Option 1
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" name="someOption" ng-model="vm.person.someOption" value="Opt 2">
+                            Option 2
+                        </label>
+                    </div>
+                    <div class="radio disabled">
+                        <label>
+                            <input type="radio" name="someOption" ng-model="vm.person.someOption" value="Opt 3" ng-disabled="vm.person.ofAge !== true">
+                            Option 3 (Select to enable Comment)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control" rows="5" id="comment"
+                                  ng-model="vm.person.comment"
+                                  ng-disabled="vm.person.someOption !== 'Opt 3'"
+                                  ng-minlength="10">
+                        </textarea>
+                    </div>
+                </div>
+                
+                <button type="reset" class="btn btn-danger"
+                        ng-click="vm.reset(myForm)">Reset</button>
+                
+                <button type="submit" class="btn btn-default"
+                        ng-click="vm.submit(myForm)"
+                        ng-disabled="myForm.$invalid">Submit</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h3>Form as JSON</h3>
+            <code>
+                {{vm.person | json:4}}
+            </code>
+            <h3>Validation details</h3>
+            
+            <!--
+            Input fields have the following states:
+
+                $untouched The field has not been touched yet
+                $touched The field has been touched
+                $pristine The field has not been modified yet
+                $dirty The field has been modified
+                $invalid The field content is not valid
+                $valid The field content is valid
+            
+            Forms have the following states:
+            
+                $pristine No fields have been modified yet
+                $dirty One or more have been modified
+                $invalid The form content is not valid
+                $valid The form content is valid
+                $submitted The form is submitted
+            -->
+            
+            <table class="table">
+                <tr>
+                    <td>myForm.$dirty</td>
+                    <td>{{myForm.$dirty}}</td>
+                </tr>
+                <tr>
+                    <td>myForm.$invalid</td>
+                    <td>{{myForm.$invalid}}</td>
+                </tr>
+                <tr>
+                    <td>myForm.$submitted</td>
+                    <td>{{myForm.$submitted}}</td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+<script src="../libraries/jquery/jquery.js"></script>
+<script src="../libraries/bootstrap/js/bootstrap.js"></script>
+<script src="../libraries/angular/angular.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

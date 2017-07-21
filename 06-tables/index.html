@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>AngularJS</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="../libraries/bootstrap/css/bootstrap.css"/>
+    <!-- Custom CSS -->
+    <style>
+        body {
+            padding-top: 75px;
+        }
+        
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+        
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+        
+        .odd {
+            background-color: #e0e0e0;
+        }
+        
+        .even {
+            background-color: #d9edf7;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Starter</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<!-- Page Content -->
+<div class="container" ng-controller="EmpCtrl as vm">
+    <div class="row">
+        <label>Search:</label>
+        <input type="text" ng-model="searchTerm">
+        <label>Order By:</label>
+        <select ng-model="orderColumn">
+            <option value="name">Name</option>
+            <option value="email">Email</option>
+            <option value="dept">Dept</option>
+            <option value="salary">Salary</option>
+        </select>
+        <input type="checkbox" ng-model="reverse"> Reverse
+    </div>
+    <div class="row">
+        <div class="starter-template">
+            <h1>Employees</h1>
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th><a href="#">Name</a></th>
+                    <th><a href="#">Email</a></th>
+                    <th><a href="#">Dept</a></th>
+                    <th><a href="#">Salary</a></th>
+                </tr>
+                
+                <tr ng-repeat="emp in vm.employees | filter:searchTerm | orderBy:orderColumn:reverse"
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'">
+                    
+                    <td>{{$index + 1}}</td>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.email}}</td>
+                    <td>{{emp.dept}}</td>
+                    <td>{{emp.salary | number}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+<script src="../libraries/jquery/jquery.js"></script>
+<script src="../libraries/bootstrap/js/bootstrap.js"></script>
+<script src="../libraries/angular/angular.js"></script>
+<script src="app.js"></script>    
+</body>
+</html>
